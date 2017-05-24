@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Cors;
 
 namespace CoreWebAPIApp
 {
@@ -34,6 +35,12 @@ namespace CoreWebAPIApp
             // Add framework services.
             services.AddMvc();
 
+            //services.AddCors();
+            services.AddCors(o => o.AddPolicy("CORSPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:8080/").AllowAnyMethod().AllowAnyHeader();
+            }));
+
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -46,6 +53,12 @@ namespace CoreWebAPIApp
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            // Shows UseCors with CorsPolicyBuilder.
+            // app.UseCors(builder =>
+            //    builder.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod());
+            //This should be called before app.UseCors("MyPolicy")
+            app.UseCors("CORSPolicy");
 
             app.UseMvc();
 

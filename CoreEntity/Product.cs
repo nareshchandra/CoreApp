@@ -14,5 +14,9 @@ namespace CoreEntity
         public int Price { get; set; }
         [BsonElement("Category")]
         public string Category { get; set; }
+        [BsonElement("ProductCode")]
+        public string ProductCode { get; set; }
+        [BsonElement("Description")]
+        public string Description { get; set; }
     }
 }
