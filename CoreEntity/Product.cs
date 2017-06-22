@@ -1,11 +1,10 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
  
-namespace CoreEntity
+namespace Core.Entity
 {
-    public class Product:IEntity
+    public sealed class Product:BaseEntity
     {
-        public ObjectId Id { get; set; }
         [BsonElement("ProductId")]
         public int ProductId { get; set; }
         [BsonElement("ProductName")]

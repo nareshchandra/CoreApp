@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using CoreEntity;
-using CoreRepository;
+using Core.Entity;
+using Core.Repository;
 using Microsoft.AspNetCore.Cors;
 
 namespace CoreWebAPIApp.Controllers
@@ -13,24 +13,23 @@ namespace CoreWebAPIApp.Controllers
    [Route("api/Product")]
     public class ProductAPIController : Controller
     {
-        DataAccess objds;
- 
-        public ProductAPIController()
+        private readonly IRepository<Product> productRepository;
+            
+        public ProductAPIController(IRepository<Product> productRepository)
         {
-            objds = new DataAccess(); 
+            this.productRepository = productRepository;
         }
  
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            MongoRepository<Product> rep = new MongoRepository<Product>();
-            return rep.GetAll();//objds.GetProducts();
+            return productRepository.GetAll(null);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var product = objds.GetProduct(new ObjectId(id));
+            var product = productRepository.Get();
             if (product == null)
             {
                 return NotFound();
