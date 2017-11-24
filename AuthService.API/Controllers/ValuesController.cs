@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreWebAPIApp.Controllers
+namespace AuthService.API.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
@@ -13,8 +13,7 @@ namespace CoreWebAPIApp.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            throw new Exception("Test hello excpetion");
-            //return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
